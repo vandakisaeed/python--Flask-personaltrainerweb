@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex flex-col gap-6 md:py-12">
+    <div class="card bg-base-100 shadow-xl md:card-side">
+        <figure class="p-6 bg-base-300 flex justify-center items-center">
+            <div class="avatar">
+                <div class="ring-primary ring-offset-base-100 w-40 rounded-full ring ring-offset-2">
+                    <img src="{{ data.picture }}" alt="{{ data.name }}" width="160" height="160" />
+                </div>
+            </div>
+        </figure>
+        <div class="card-body">
+            <h2 class="card-title text-3xl text-primary">{{ data.name }}</h2>
+            <p class="text-sm text-base-content/70">
+                <strong>Location:</strong> {{ data.location }}
+            </p>
+            <p class="text-sm text-base-content/70">
+                <strong>Email:</strong>
+                <a href="mailto:{{ data.email }}" class="hover:text-primary hover:underline">{{ data.email }}</a>
+            </p>
+        </div>
+    </div>
+    <div class="card bg-base-100 shadow-md">
+        <div class="card-body">
+            <h3 class="text-xl font-semibold text-primary">About {{ data.name.split(" ")[0] }}</h3>
+            <p class="text-base text-base-content leading-relaxed">{{ data.bio }}</p>
+        </div>
+    </div>
+</div>
+{% include "homepage/projects.html" %}
+{% endblock content %}

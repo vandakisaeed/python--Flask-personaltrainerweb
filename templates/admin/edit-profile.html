@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div id="flash-messages" class="absolute container z-50 top-0">
+    {% for message in messages %}
+    <div role="alert" class="alert alert-error relative mb-2">
+        <span>{{ message }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+<h1 class="text-3xl font-bold text-primary mb-6">Edit Personal Info</h1>
+<form action="{{ url_for('admin.edit_profile') }}" method="post" enctype="multipart/form-data" class="space-y-6">
+    <div class="flex">
+        <figure class="flex-1">
+            <img src="{{ data['picture'] or 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png' }}"
+                alt="Current profile picture" class="w-24 h-24 object-cover rounded-full mx-auto" width="96"
+                height="96" />
+            <figcaption class="text-center text-sm text-gray-600">
+                {{ 'Current profile picture' if data['picture'] else 'No profile picture, add one!' }}
+            </figcaption>
+        </figure>
+        <fieldset class="fieldset flex-2">
+            <legend class="fieldset-legend">Picture</legend>
+            <input name="picture" type="file" class="file-input w-full" />
+        </fieldset>
+    </div>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">Full name</legend>
+        <input name='full_name' type="text" class="input w-full" placeholder="Full name"
+            value="{{ data['full_name'] }}" />
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">Bio</legend>
+        <textarea name="bio" class="textarea w-full" placeholder="Bio" rows="5">{{ data['bio']  }}</textarea>
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">Location</legend>
+        <input name='location' type="text" class="input w-full" placeholder="Location" value="{{ data['location'] }}" />
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">Email</legend>
+        <input name='email' type="email" class="input w-full" placeholder="Email" value="{{ data['email'] }}" />
+    </fieldset>
+    <div class="form-control mt-4">
+        <button type="submit" class="btn btn-primary w-full">Save Changes</button>
+    </div>
+</form>
+<script>
+    setTimeout(() => {
+        const flash = document.getElementById('flash-messages');
+        if (flash) {
+            flash.remove();
+        }
+    }, 5000);
+</script>
+{% endblock content %}

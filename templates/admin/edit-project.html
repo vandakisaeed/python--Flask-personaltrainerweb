@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div id="flash-messages" class="absolute container z-50 top-0">
+    {% for message in messages %}
+    <div role="alert" class="alert alert-error relative mb-2">
+        <span>{{ message }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+<h1 class="text-3xl font-bold text-primary mb-6">Edit Project: {{ data['name'] }}</h1>
+<form action="{{ url_for('admin.edit_project', id=data['id']) }}" method="post" enctype="multipart/form-data"
+    class="space-y-6">
+    <div class="flex">
+        <figure class="flex-1">
+            <img src="{{ data['image'] or 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1024px-Placeholder_view_vector.svg.png?20220519031949' }}"
+                alt="Current project picture" class="w-48 h-24 object-cover mx-auto" width="96" height="96" />
+            <figcaption class="text-center text-sm text-gray-600">
+                {{ 'Current project picture' if data['picture'] else 'No project picture, add one!' }}
+            </figcaption>
+        </figure>
+        <fieldset class="fieldset flex-2">
+            <legend class="fieldset-legend">Picture</legend>
+            <input name="image" type="file" class="file-input w-full" />
+        </fieldset>
+    </div>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">Title</legend>
+        <input name='name' type="text" class="input w-full" placeholder="Title" value="{{ data['name'] }}" />
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">Demo URL</legend>
+        <input name='demo_url' type="text" class="input w-full" placeholder="Demo URL" value="{{ data['demo_url'] }}" />
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">Bio</legend>
+        <textarea name="description" class="textarea w-full" placeholder="Description"
+            rows="5">{{ data['description']  }}</textarea>
+    </fieldset>
+    <div class="form-control mt-4">
+        <button type="submit" class="btn btn-primary w-full">Save Changes</button>
+    </div>
+</form>
+<script>
+    setTimeout(() => {
+        const flash = document.getElementById('flash-messages');
+        if (flash) {
+            flash.remove();
+        }
+    }, 5000);
+</script>
+{% endblock content %}

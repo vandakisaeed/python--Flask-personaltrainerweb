@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Personal Website" />
+    <meta name="author" content="{{ name }}" />
+    <meta name="keywords" content="personal, website, blog" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>{{ name }}</title>
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <main class="container mx-auto mb-auto p-5">
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <footer class="footer sm:footer-horizontal bg-primary text-neutral-content items-center p-4">
+        <aside class="grid-flow-col items-center">
+            <p>Copyright © 2025 {{ name }} - All rights reserved</p>
+        </aside>
+        <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+            <a href="{{ url_for('home.home') }}" class="hover:underline">Bio</a>
+            {% if session.user_id %}
+            <a href="{{ url_for('admin.admin') }}" class="hover:underline">Admin</a>
+            <a href="{{ url_for('auth.logout') }}" class="hover:underline">Log Out</a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}" class="hover:underline">Log In</a>
+            {% endif %}
+        </nav>
+    </footer>
+</body>
+
+</html>

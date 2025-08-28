@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-8 space-y-6">
+    <h1 class="text-3xl font-bold text-primary mb-4">Admin Dashboard</h1>
+    <div class="grid gap-6 md:grid-cols-2">
+        <div class="card bg-base-100 shadow-md hover:shadow-xl transition">
+            <div class="card-body">
+                <h2 class="card-title text-primary">Edit Personal Info</h2>
+                <p class="text-base-content/70">Update your name, bio, profile picture, and contact details.</p>
+                <div class="card-actions justify-end">
+                    <a href="{{ url_for('admin.edit_profile') }}" class="btn btn-primary">Edit Info</a>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-md hover:shadow-xl transition">
+            <div class="card-body">
+                <h2 class="card-title text-primary">Manage Projects</h2>
+                <p class="text-base-content/70">Add, edit, or remove projects displayed on your site.</p>
+                <div class="card-actions justify-end">
+                    <a href="{{ url_for('admin.edit_projects') }}" class="btn btn-primary">Manage Projects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
